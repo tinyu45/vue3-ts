@@ -1,48 +1,48 @@
 
 module.exports = {
-    root: true,
-    env: {
-      node: true
-    },
-    extends: [
-      'plugin:vue/essential',
-      '@vue/typescript/recommended'
-    ],
-    parserOptions: {
-      ecmaVersion: 2020
-    },
-    rules: {
-      "vue/no-v-model-argument": "off",
-      'vetur.validation.template':'off',
-      '@typescript-eslint/ban-types': 'off',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/member-delimiter-style': ['error',
-        {
-          multiline: {
-            delimiter: 'none'
-          },
-          singleline: {
-            delimiter: 'comma'
-          }
-        }],
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-var-requires': 'off',
-      'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',     // 生产环境禁用console
-      'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',  // 生产环境禁用 debugger
-      'vue/array-bracket-spacing': 'error',
-      'vue/arrow-spacing': 'error',
-      'vue/block-spacing': 'error',
-      'vue/brace-style': 'error',
-      'vue/camelcase': 'error',
-      'vue/comma-dangle': 'error',
-      'vue/component-name-in-template-casing': ['error', 'kebab-case'],
-      'vue/eqeqeq': 'error',
-      'vue/key-spacing': 'error',
-      'vue/match-component-file-name': 'error',
-      //'vue/object-curly-spacing': 'error'
+  root: true,
+  env: {
+    node: true
+  },
+  extends: [
+    'plugin:vue/essential',
+    '@vue/typescript/recommended'
+  ],
+  parserOptions: {
+    ecmaVersion: 2020
+  },
+  rules: {
+    "vue/no-v-model-argument": "off",
+    'vetur.validation.template': 'off',
+    '@typescript-eslint/ban-types': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/member-delimiter-style': ['error',
+      {
+        multiline: {
+          delimiter: 'none'
+        },
+        singleline: {
+          delimiter: 'comma'
+        }
+      }],
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off', // 生产环境禁用console
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off', // 生产环境禁用 debugger
+    'vue/array-bracket-spacing': 'error',
+    'vue/arrow-spacing': 'error',
+    'vue/block-spacing': 'error',
+    'vue/brace-style': 'error',
+    'vue/camelcase': 'error',
+    'vue/comma-dangle': 'error',
+    'vue/component-name-in-template-casing': ['error', 'kebab-case'],
+    'vue/eqeqeq': 'error',
+    'vue/key-spacing': 'error',
+    'vue/match-component-file-name': 'error',
+    // 'vue/object-curly-spacing': 'error'
 
-      //***************  新增   ****************
-        "vue/max-attributes-per-line": [2, {
+    //* **************  新增   ****************
+    "vue/max-attributes-per-line": [2, {
       "singleline": 10, // 配置单行能够防止的属性个数, 和多行的配置是二选一的
       "multiline": {
         "max": 2, // 配置单行能够防止的属性个数，和单行的配置是二选一的
@@ -195,10 +195,6 @@ module.exports = {
     }], // 强制使用一致的反勾号、双引号或单引号
     'semi': [0, 'never'], // 末尾不用出现分号
     'semi-spacing': [2, {
-      'before': false,
-      'after': true
-    }],
-    'semi-spacing': [2, {
       'before': false, // 禁止分号之前有空格
       'after': true // 强制分号之后有空格
     }],
@@ -226,16 +222,16 @@ module.exports = {
     }], // 强制在花括号中使用一致的空格
     'array-bracket-spacing': [2, 'never'] // 强制数组方括号中使用一致的空格
 
-    },
-    overrides: [
-      {
-        files: [
-          '**/__tests__/*.{j,t}s?(x)',
-          '**/tests/unit/**/*.spec.{j,t}s?(x)'
-        ],
-        env: {
-          jest: true
-        }
+  },
+  overrides: [
+    {
+      files: [
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)'
+      ],
+      env: {
+        jest: true
       }
-    ]
-  }
+    }
+  ]
+}

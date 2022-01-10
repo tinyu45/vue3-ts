@@ -31,9 +31,9 @@
 import { ref, defineComponent } from 'vue'
 import { RouteRecordRaw } from 'vue-router'
 interface listItem{
-  title:string;
-  desc:string;
-  avatar:string;
+  title:string
+  desc:string
+  avatar:string
 }
 
 export default defineComponent({
