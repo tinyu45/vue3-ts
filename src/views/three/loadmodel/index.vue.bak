@@ -1,0 +1,86 @@
+<template>
+  <div ref="container" class="three-container"></div>
+</template>
+<script lang="ts">
+import { defineComponent, onMounted, ref, unref } from "vue";
+import { SmileOutlined, DownOutlined } from "@ant-design/icons-vue";
+import { useCommon } from "../utils/common";
+import * as THREE from "three";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader"; // obj文件加载
+import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader"; // 材质加载
+export default defineComponent({
+  setup() {
+    const container = ref(null);
+    onMounted(() => {
+      var scene = new THREE.Scene();
+      // 创建相机
+      var camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      // 创建渲染器
+      var renderer = new THREE.WebGLRenderer();
+      // 设置渲染范围
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.position.set(0, 0, 500);
+      scene.add(camera);
+
+      // Add a light in the scene
+      var directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      directionalLight.position.set(0, 0, 350);
+      directionalLight.lookAt(new THREE.Vector3(0, 0, 0));
+      scene.add(directionalLight);
+      // 添加3d画板到页面
+      const contant: any = unref(container);
+      contant.appendChild(renderer.domElement);
+
+      // 加载模型
+      // Manager from ThreeJs to track a loader and its status
+      var manager = new THREE.LoadingManager();
+      // Loader for Obj from Three.js
+      var loader = new OBJLoader(manager);
+      // Launch loading of the obj file, addBananaInScene is the callback when it's ready
+      loader.load("/model/002.obj", (object: any) => {
+        var banana = object;
+        // Move the banana in the scene
+        banana.rotation.x = Math.PI / 2;
+        // 设置位置
+        // banana.position.y = -200;
+        // banana.position.z = 50;
+        object.position.set(0, 0, 0);
+        object.scale.set(10, 10, 10);
+        // Go through all children of the loaded object and search for a Mesh
+        object.traverse(function(child: any) {
+          // This allow us to check if the children is an instance of the Mesh constructor
+          if (child instanceof THREE.Mesh) {
+            child.material.color = new THREE.Color(0x00ff00);
+            // Sometimes there are some vertex normals missing in the .obj files, ThreeJs will compute them
+            child.geometry.computeVertexNormals();
+          }
+        });
+        // Add the 3D object in the scene
+        scene.add(banana);
+        render();
+      });
+
+      function render() {
+        requestAnimationFrame(render);
+        renderer.render(scene, camera);
+      }
+    });
+
+    return {
+      container
+    };
+  }
+});
+</script>
+<style lang="less" scoped>
+.three-container {
+  width: 100%;
+  height: 100vh;
+  background: blue;
+}
+</style>

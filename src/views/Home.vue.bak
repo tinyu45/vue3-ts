@@ -1,0 +1,128 @@
+/* eslint-disable vue/no-deprecated-slot-attribute */
+<template>
+  <div class="home">
+    <div class="head">
+      <img alt="Vue logo" src="../assets/logo.png">
+      <img alt="ts logo" src="../assets/ts.jpg">
+      <img alt="ant logo" src="../assets/ant.jpg">
+    </div>
+    <div class="list-pack">
+        <a-list item-layout="horizontal" :data-source="data1">
+          <template  v-slot:renderItem="{item}">
+            <a-list-item>
+              <a-list-item-meta :description="item.desc">
+                <template #title>
+                  <a href="https://www.antdv.com/">{{ item.title }}</a>
+                </template>
+                <template #avatar>
+                  <a-avatar :src="item.avatar"/>
+                </template>
+              </a-list-item-meta>
+            </a-list-item>
+          </template>
+        </a-list>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component'
+import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
+import { ref } from 'vue'
+interface listItem{
+  title:string;
+  desc:string;
+  avatar:string;
+}
+
+// setup(){
+//   console.log('setup aaaaaa!!!')
+//   const data2 = ref<listItem[]>([{
+//     title: '标题一',
+//     desc: '描述01',
+//     avatar: '../assets/logo.png'
+//   }])
+//   return { data2 }
+// }
+
+@Options({
+  components: {
+    HelloWorld
+  },
+
+  data () {
+    return {
+      data1: [
+        {
+          title: '标题一',
+          desc: '描述01',
+          avatar: require('../assets/logo.png')
+        },
+        {
+          title: '标题一',
+          desc: '描述02',
+          avatar: '../assets/logo.png'
+        },
+        {
+          title: '标题一',
+          desc: '描述02',
+          avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
+        },
+        {
+          title: '标题一',
+          desc: '描述01',
+          avatar: require('../assets/logo.png')
+        },
+        {
+          title: '标题一',
+          desc: '描述02',
+          avatar: '../assets/logo.png'
+        },
+        {
+          title: '标题一',
+          desc: '描述02',
+          avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
+        }
+      ]
+    }
+  },
+
+  methods: {
+
+  },
+
+  mounted () {
+    console.log(this.data2)
+  }
+
+})
+
+export default class Home extends Vue {
+
+}
+
+</script>
+<style lang="less" scoped>
+  .home{
+    img{
+      width:100px;
+      height:100px;
+      margin:20px 30px;
+      border-radius: 10px;
+    }
+    .list-pack{
+      text-align: left;
+      // margin-top:30px;
+      padding: 0 30px;
+      height: calc(100vh - 200px);
+      overflow-y: scroll;
+      overflow-x:hidden
+    }
+    .head{
+      padding-bottom: 30px;
+      background: #0F2027;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+  }
+</style>
