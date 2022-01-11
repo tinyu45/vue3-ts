@@ -1,5 +1,5 @@
 {
-  "name": "vue3-demo",
+  "name": "vue3-ts",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@jiaminghi/data-view": "^2.10.0",
     "@types/three": "^0.128.0",
     "ant-design-vue": "^2.1.2",
     "core-js": "^3.6.5",

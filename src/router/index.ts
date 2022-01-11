@@ -75,6 +75,16 @@ const routes: Array<RouteRecordRaw> = [
       desc: '用户管理',
       icon: ''
     }
+  },
+  {
+    path: '/datav',
+    name: 'datav',
+    component: () => import('../views/datav-demo/index.vue'),
+    meta: {
+      title: 'datav 📊',
+      desc: 'datav',
+      icon: ''
+    }
   }
 ]
 // // history: createWebHistory(process.env.BASE_URL),
