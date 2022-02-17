@@ -35,6 +35,32 @@ module.exports = {
   productionSourceMap: false, // 调整内部的webpack配置. // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
 
   configureWebpack: {
+    module: {
+      rules: [
+        // OrbitControls.js库使用
+        {
+          test: require.resolve('three/examples/js/controls/OrbitControls'),
+          use: 'imports-loader?THREE=three'
+        },
+        {
+          test: require.resolve('three/examples/js/controls/OrbitControls'),
+          use: 'exports-loader?THREE.OrbitControls'
+        },
+        {
+          test: require.resolve("three/examples/js/renderers/CSS2DRenderer"),
+          use: "imports-loader?THREE=three"
+        },
+        // 经测试，下面两个配置作用不大，去掉或者加上同样报警告，但是不影响使用
+        {
+          test: require.resolve("three/examples/js/renderers/CSS2DRenderer"),
+          use: "exports-loader?THREE.CSS2DObject"
+        },
+        {
+          test: require.resolve("three/examples/js/renderers/CSS2DRenderer"),
+          use: "exports-loader?THREE.CSS2DRenderer"
+        }
+      ]
+    },
     plugins: [
       new WebpackBar({
         name: 'Ceisum project',

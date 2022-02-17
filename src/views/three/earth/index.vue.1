@@ -1,0 +1,143 @@
+<template>
+  <div ref="container" id="three-container" class="three-container"></div>
+</template>
+<script lang="ts">
+import { defineComponent, onMounted, ref, unref, onBeforeUnmount } from 'vue'
+import * as THREE from 'three'
+
+function init(container: HTMLDivElement) {
+  // 创建场景
+  var scene = new THREE.Scene()
+  // 设置摄像机
+  var camera = new THREE.PerspectiveCamera(
+    45,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    2000
+  )
+  // 创建渲染器
+  var renderer = new THREE.WebGLRenderer()
+  // 设置渲染器的初始颜色
+  renderer.setClearColor(new THREE.Color(0xeeeeee))
+  // 设置输出canvas画面的大小
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  // 显示三维坐标系  x:红色   z:蓝色  y:绿色
+
+  // 设置渲染物体阴影
+  // renderer.shadowMapEnabled = true; // 旧版
+  renderer.shadowMap.enabled = true
+
+  // *****************************************  平面  ************************************************
+  // 创建地面的几何体
+  var planeGeometry = new THREE.PlaneGeometry(100, 80)
+  // 给地面物体上色
+  // var planeMaterial = new THREE.MeshBasicMaterial({ color: 0xcccccc });
+  var planeMaterial = new THREE.MeshLambertMaterial({ color: 0xcccccc })
+  // 创建地面
+  var plane = new THREE.Mesh(planeGeometry, planeMaterial)
+  // 物体移动位置
+  plane.rotation.x = -0.5 * Math.PI // -90°
+  plane.position.x = 10
+  plane.position.y = 0
+  plane.position.z = -15
+  plane.castShadow = true
+  // 接收阴影
+  plane.receiveShadow = true
+  // 将地面添加到场景中
+  scene.add(plane)
+
+  // ***************************************** 立方体  **********************************************
+  const boxgeometry = new THREE.BoxGeometry(12, 12, 12)
+  // const material = new THREE.MeshBasicMaterial({ color: 0x0088ff });
+  // const material = new THREE.MeshLambertMaterial({ color: 0x0088ff });
+
+  // 单个贴图
+  // const map = new THREE.TextureLoader().load("img/gless_texture.jpg");
+  // const material = new THREE.MeshBasicMaterial({ map });
+
+  // 直接使用材质数组来构建物体，数组里的材质分别对应物体的右、左、上、下、前、后
+  // 定义多个导入贴图的材质，放到一个数组里
+  const loader = new THREE.TextureLoader()
+  var materials = [
+    new THREE.MeshBasicMaterial({
+      map: loader.load('img/girl/01.jpg'),
+      side: THREE.DoubleSide
+    }),
+    new THREE.MeshBasicMaterial({
+      map: loader.load('img/girl/02.jpg'),
+      side: THREE.DoubleSide
+    }),
+    new THREE.MeshBasicMaterial({
+      map: loader.load('img/girl/03.jpg'),
+      side: THREE.DoubleSide
+    }),
+    new THREE.MeshBasicMaterial({
+      map: loader.load('img/girl/04.jpg'),
+      side: THREE.DoubleSide
+    }),
+    new THREE.MeshBasicMaterial({
+      map: loader.load('img/girl/05.jpg'),
+      side: THREE.DoubleSide
+    }),
+    new THREE.MeshBasicMaterial({
+      map: loader.load('img/girl/06.jpg'),
+      side: THREE.DoubleSide
+    })
+  ]
+
+  const cube = new THREE.Mesh(boxgeometry, materials)
+  cube.position.y = 8
+  cube.position.x = 0
+  cube.position.z = 0
+  cube.castShadow = true
+  scene.add(cube)
+
+  // 添加高亮线框
+  const boxhelper: any = new THREE.BoxHelper(cube, '#00ffff') // object 模型
+  scene.add(boxhelper)
+
+  // *************************************************创建聚光灯****************************
+  var spotLight = new THREE.SpotLight(0xffffff)
+  // spotLight.position.set(-5, 30, 0);
+  spotLight.position.set(130, 180, 130)
+  spotLight.castShadow = true
+  // 添加聚光灯
+  scene.add(spotLight)
+
+  // 定位相机，并且指向场景中心
+  camera.position.x = -30
+  camera.position.y = 30
+  camera.position.z = 30
+  camera.lookAt(scene.position)
+
+  // 将渲染器输出添加html元素中
+  container.appendChild(renderer.domElement)
+  function render() {
+    renderer.render(scene, camera)
+    requestAnimationFrame(render)
+  }
+  render()
+}
+
+export default defineComponent({
+  setup() {
+    const container = ref(null)
+    onMounted(() => {
+      const box = container.value
+      if (box) {
+        init(box)
+      }
+    })
+    return {
+      container
+    }
+  }
+})
+</script>
+<style lang="less" scoped>
+.three-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+</style>

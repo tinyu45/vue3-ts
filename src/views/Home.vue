@@ -9,18 +9,18 @@
     <div class="list-pack">
         <a-list item-layout="horizontal" :data-source="routelist">
           <template  v-slot:renderItem="{item}">
-            <a-list-item>
-              <router-link :to="item.path">
-                <a-list-item-meta :description="item.meta.desc">
-                  <template #title>
-                    <a href="https://www.antdv.com/">{{ item.meta.title }}</a>
-                  </template>
-                  <template #avatar>
-                    <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
-                  </template>
-                </a-list-item-meta>
-              </router-link>
-            </a-list-item>
+            <router-link :to="item.path">
+              <a-list-item>
+                  <a-list-item-meta :description="item.meta.desc">
+                    <template #title>
+                      <a href="https://www.antdv.com/">{{ item.meta.title }}</a>
+                    </template>
+                    <template #avatar>
+                      <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>
+                    </template>
+                  </a-list-item-meta>
+              </a-list-item>
+            </router-link>
           </template>
         </a-list>
     </div>

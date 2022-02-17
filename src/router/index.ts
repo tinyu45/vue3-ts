@@ -57,16 +57,6 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: '/earth',
-    name: 'Earth',
-    component: () => import('../views/three/earth/index.vue'),
-    meta: {
-      title: 'erath 🌏',
-      desc: 'a funny ball',
-      icon: ''
-    }
-  },
-  {
     path: '/user',
     name: 'User',
     component: () => import('../views/user-demo/index.vue'),
@@ -83,6 +73,56 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'datav 📊',
       desc: 'datav',
+      icon: ''
+    }
+  },
+  {
+    path: '/three_base',
+    name: 'three_base',
+    component: () => import('../views/three/base/index.vue'),
+    meta: {
+      title: 'threeJs基础示例 ♦',
+      desc: '基础示例',
+      icon: ''
+    }
+  },
+  {
+    path: '/three_animate',
+    name: 'three_animate',
+    component: () => import('../views/three/animate/index.vue'),
+    meta: {
+      title: 'threeJs 动效✨',
+      desc: '好看的动画',
+      icon: ''
+    }
+  },
+  {
+    path: '/three_control',
+    name: 'three_control',
+    component: () => import('../views/three/control/index.vue'),
+    meta: {
+      title: 'threeJs 控制器控制 🎮',
+      desc: '控制器啊',
+      icon: ''
+    }
+  },
+  {
+    path: '/three_city',
+    name: 'city',
+    component: () => import('../views/three/city/index.vue'),
+    meta: {
+      title: '智慧城市🏗',
+      desc: '智慧城市',
+      icon: ''
+    }
+  },
+  {
+    path: '/earth',
+    name: 'Earth',
+    component: () => import('../views/three/earth/index.vue'),
+    meta: {
+      title: 'erath 🌏',
+      desc: 'a funny ball',
       icon: ''
     }
   }
